@@ -3,8 +3,8 @@ import app from '../config/app'
 
 describe('Content Type Middleware', () => {
     test('Should return default content type as json', async () => {
-        app.post('/test_content_type', (req, res) => {
-            res.send('')
+        app.get('/test_content_type', (req, res) => {
+            return res.send('')
         })
 
         await request(app)
@@ -13,7 +13,7 @@ describe('Content Type Middleware', () => {
     })
 
     test('Should return xml content type when forced', async () => {
-        app.post('/test_content_type_xml', (req, res) => {
+        app.get('/test_content_type_xml', (req, res) => {
             res.type('xml')
             res.send('')
         })
