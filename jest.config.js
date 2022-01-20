@@ -14,4 +14,4 @@ const jest = {
   }
 }
 
-module.exports = {...tsPreset, ...jest, ...mongoPreset}
+module.exports = { ...tsPreset, ...jest, ...mongoPreset }
