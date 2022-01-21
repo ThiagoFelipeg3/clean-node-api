@@ -1,7 +1,7 @@
 import { Router } from 'express'
+import { adaptExpress } from '../adapters/express-adapter'
+import { makeSignupController } from '../factories/signup-factory'
 
 export default (router: Router): void => {
-    router.post('/signup', (req, res) => {
-        res.json({ ok: 'okok' })
-    })
+    router.post('/signup', adaptExpress(makeSignupController()))
 }
