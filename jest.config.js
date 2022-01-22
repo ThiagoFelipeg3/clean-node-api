@@ -2,7 +2,10 @@ const mongoPreset = require('@shelf/jest-mongodb/jest-preset')
 const tsPreset = require('ts-jest/jest-preset')
 const jest = {
   collectCoverage: true,
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.ts',
+    '!<rootDir>/src/main/**'
+  ],
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
   //preset: '@self/jest-mongodb',
