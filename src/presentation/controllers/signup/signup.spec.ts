@@ -188,8 +188,9 @@ describe('SignUp Controller', () => {
         const httpResponse = await sut.handle(httpRequest)
 
         expect(httpResponse.statusCode).toBe(500)
-        expect(httpResponse.body).toEqual(new ServerError())
+        expect(httpResponse.body).toEqual(new ServerError(new Error()))
     })
+
     test('Should return 500 if AddAccount throws', async () => {
         const { sut, addAccountStub } = makeSut()
         jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => {
@@ -208,7 +209,7 @@ describe('SignUp Controller', () => {
         const httpResponse = await sut.handle(httpRequest)
 
         expect(httpResponse.statusCode).toBe(500)
-        expect(httpResponse.body).toEqual(new ServerError())
+        expect(httpResponse.body).toEqual(new ServerError(new Error()))
     })
 
     test('Should call AddAccount with correnct values', async () => {
