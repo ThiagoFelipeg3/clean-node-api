@@ -1,27 +1,43 @@
-import { InvalidParamError, MissingParamError } from '../../errors'
-import { badRequest, ok } from '../../helpers/http-helper'
-import { Controller, HttpRequest, HttpResponse } from '../../protocols'
-import { EmailValidator } from '../signup/signup-protocols'
+import { InvalidParamError, MissingParamError} from '../../errors'
+import { badRequest, ok, serverError, unauthorized } from '../../helpers/http-helper'
+import {
+    Controller,
+    HttpRequest,
+    HttpResponse,
+    Authentication,
+    EmailValidator
+} from './login-protocols'
 
 export class LoginController implements Controller {
-    constructor (private readonly emailValidator: EmailValidator) {}
+    constructor (
+        private readonly emailValidator: EmailValidator,
+        private readonly authentication: Authentication
+    ) {}
 
     async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-        const { body: { email, password } } = httpRequest
+        try {
+            const requiredFields = ['email', 'password']
+            const { body: { email, password } } = httpRequest
 
-        if (!email) {
-            return badRequest(new MissingParamError('email'))
+            for (const field of requiredFields) {
+                if (!httpRequest.body[field]) {
+                    return badRequest(new MissingParamError(field))
+                }
+            }
+
+            const emailValid = this.emailValidator.isValid(email)
+            if (!emailValid) {
+                return badRequest(new InvalidParamError('email'))
+            }
+
+            const accessToken = await this.authentication.auth(email, password)
+            if (!accessToken) {
+                return unauthorized()
+            }
+
+            return ok({ accessToken })
+        } catch (error) {
+            return serverError(error)
         }
-
-        if (!password) {
-            return badRequest(new MissingParamError('password'))
-        }
-
-        const emailValid = this.emailValidator.isValid(email)
-        if (!emailValid) {
-            return badRequest(new InvalidParamError('email'))
-        }
-
-        return ok({})
     }
 }
