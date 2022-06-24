@@ -7,7 +7,7 @@ import {
     Validation
 } from './signup-protocols'
 
-import { MissingParamError, InvalidParamError } from '../../errors'
+import { InvalidParamError } from '../../errors'
 import { badRequest, serverError, createOk } from '../../helpers/http-helper'
 
 export class SignUpController implements Controller {
