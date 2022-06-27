@@ -44,4 +44,11 @@ describe('Validation Composite', () => {
 
         expect(response).toEqual(new Error())
     })
+
+    test('Should not return if validation secceeds ', () => {
+        const { sut } = makeSut()
+        const response = sut.validate({ field: 'any_field' })
+
+        expect(response).toBeNull()
+    })
 })
