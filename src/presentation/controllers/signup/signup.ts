@@ -6,7 +6,7 @@ import {
     Validation
 } from './signup-protocols'
 
-import { badRequest, serverError, createOk } from '../../helpers/http-helper'
+import { badRequest, serverError, createOk } from '../../helpers/http/http-helper'
 
 export class SignUpController implements Controller {
     constructor (
