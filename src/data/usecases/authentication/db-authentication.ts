@@ -12,7 +12,7 @@ export class DbAuthentication implements Authentication {
         private readonly loadAccountByEmailRepository: LoadAccountByEmailRepository,
         private readonly hashComparer: HashComparer,
         private readonly encrypter: Encrypter,
-        private readonly updateAccessTokenRepository: UpdateAccessTokenRepository,
+        private readonly updateAccessTokenRepository: UpdateAccessTokenRepository
     ) {}
 
     async auth (authentication: AuthenticationModel): Promise<string | null> {

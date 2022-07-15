@@ -4,7 +4,7 @@ import { DbAddAccount } from '../../../data/usecases/add-account/db-add-account'
 import { Controller } from '../../../presentation/protocols'
 import { SignUpController } from '../../../presentation/controllers/signup/signup'
 
-import BcryptAdapter from '../../../infra/criptography/bcrypt-adapter'
+import BcryptAdapter from '../../../infra/criptography/bcrypt-adapter/bcrypt-adapter'
 
 import { LogControllerDecorator } from '../../decorators/log'
 import { LogMongoRepository } from '../../../infra/db/mongodb/log-repository/log'
