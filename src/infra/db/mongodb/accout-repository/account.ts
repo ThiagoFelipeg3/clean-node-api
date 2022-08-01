@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { AddAccountRepository } from '../../../../data/protocols/db/add-account-repository'
 import { LoadAccountByEmailRepository } from '../../../../data/protocols/db/load-account-by-email-repository'
 import { AccountModel } from '../../../../domain/model/account'
@@ -27,9 +28,18 @@ export class AccountMongoRepository implements AddAccountRepository, LoadAccount
         const { _id, ...accountWithoutId } = account
         return { ...accountWithoutId, id: _id }
     }
+
+    async updateAccessToken (id: string, token: string): Promise<void> {
+        const accountCollection = await MongoHelper.getCollection('accounts')
+        await accountCollection.updateOne({ _id: new ObjectId(id) }, {
+            $set: {
+                accessToken: token
+            }
+        })
+    }
 }
 
-interface MongoFindAccount {
+export interface MongoFindAccount {
     _id: string
     name: string
     email: string
