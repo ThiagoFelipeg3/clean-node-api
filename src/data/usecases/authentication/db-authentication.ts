@@ -12,11 +12,11 @@ export class DbAuthentication implements Authentication {
         private readonly loadAccountByEmailRepository: LoadAccountByEmailRepository,
         private readonly hashComparer: HashComparer,
         private readonly encrypter: Encrypter,
-        private readonly updateAccessTokenRepository: UpdateAccessTokenRepository,
+        private readonly updateAccessTokenRepository: UpdateAccessTokenRepository
     ) {}
 
     async auth (authentication: AuthenticationModel): Promise<string | null> {
-        const account = await this.loadAccountByEmailRepository.load(authentication.email)
+        const account = await this.loadAccountByEmailRepository.loadByEmail(authentication.email)
         if (!account) {
             return null
         }
@@ -27,7 +27,7 @@ export class DbAuthentication implements Authentication {
         }
 
         const accessToken = await this.encrypter.encrypt(account.id)
-        await this.updateAccessTokenRepository.update(account.id, accessToken)
+        await this.updateAccessTokenRepository.updateAccessToken(account.id, accessToken)
 
         return accessToken
     }
