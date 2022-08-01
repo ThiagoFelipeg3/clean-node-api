@@ -10,17 +10,22 @@ export class AccountMongoRepository implements AddAccountRepository, LoadAccount
         const { insertedId: id } = await accountCollection.insertOne(accountData)
         const {
             _id,
-            ...accountWhithouId
+            ...accountWithoutId
         } = await accountCollection.findOne({ _id: id }) as MongoFindAccount
 
-        return { ...accountWhithouId, id: id.toHexString() }
+        return { ...accountWithoutId, id: id.toHexString() }
     }
 
     async loadByEmail (email: string): Promise<AccountModel | null> {
         const accountCollection = await MongoHelper.getCollection('accounts')
-        const { _id, ...account } = await accountCollection.findOne({ email }) as MongoFindAccount
+        const account = await accountCollection.findOne({ email }) as MongoFindAccount
 
-        return { ...account, id: _id }
+        if (!account) {
+            return null
+        }
+
+        const { _id, ...accountWithoutId } = account
+        return { ...accountWithoutId, id: _id }
     }
 }
 
