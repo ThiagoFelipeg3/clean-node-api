@@ -3,7 +3,7 @@ import {
     Controller,
     HttpRequest,
     HttpResponse
-} from '../../presentation/protocols'
+} from '../../../presentation/protocols'
 
 export const adaptExpress = (controller: Controller) => {
     return async (req: Request, res: Response) => {
