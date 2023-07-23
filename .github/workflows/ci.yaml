@@ -1,0 +1,24 @@
+name: ci-clean-node-api
+on: [push]
+jobs:
+  check-application:
+    runs-on: ubuntu-latest
+     strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: setup node
+        uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install --only=prod
+
+      - name: Test
+        run: npm run test
+
+      - name: Start
+        run: npm start
