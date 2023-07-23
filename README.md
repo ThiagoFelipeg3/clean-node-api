@@ -26,4 +26,21 @@ Vamos falar sobre o uso correto de middlewares para gerenciamento de permissões
 
 Esse curso fará você evoluir mais do que anos de faculdade. Mostrarei pra você, de forma objetiva, todos os conhecimentos que obtive ao longo dos anos de minha carreira. Você terá a oportunidade de evoluir em semanas ou meses o que um programador sênior leva anos para aprender.
 
+# Comandos
+
+### Sonar Scanner
+
+```
+sonar-scanner \
+  -Dsonar.projectKey=clean-node-api \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.token=<TOKEN> \
+  -Dsonar.tests=src \
+  -Dsonar.exclusions=node_modules,**/*spec.ts,**/*test.ts \
+  -Dsonar.test.inclusions=**/*spec.ts,**/*test.ts \
+  -Dsonar.typescript.lcov.reportPaths=./coverage/lcov.info
+
+```
+
 Continua...
