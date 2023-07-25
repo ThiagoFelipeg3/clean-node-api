@@ -1,5 +1,9 @@
 name: ci-clean-node-api
-on: [push]
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
 jobs:
   check-application:
     runs-on: ubuntu-latest
@@ -24,3 +28,9 @@ jobs:
         run: |
           npm run build
           npm start
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
