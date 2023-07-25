@@ -6,6 +6,12 @@ const jest = {
     '<rootDir>/src/**/*.ts',
     '!<rootDir>/src/main/**'
   ],
+  coveragePathIgnorePatterns: [
+    'node_modules',
+    '<rootDir>/src/data/protocols',
+    '<rootDir>/src/presentation/protocols',
+    '.protocols.ts'
+  ],
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
   //preset: '@self/jest-mongodb',
