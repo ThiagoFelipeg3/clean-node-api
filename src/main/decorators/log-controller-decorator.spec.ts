@@ -95,4 +95,12 @@ describe('LogController Decorator', () => {
 
         expect(logSpy).toHaveBeenCalledWith('any_stack')
     })
+
+    test('Should call controller handle once', async () => {
+        const { sut, controllerStub } = makeSut()
+        const handleSpy = jest.spyOn(controllerStub, 'handle')
+
+        await sut.handle(makeFakeRequest())
+        expect(handleSpy).toHaveBeenCalledTimes(1)
+    })
 })
